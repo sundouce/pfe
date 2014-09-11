@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+	<h:head />
+	<h:body>
+		
+		    <h:form id="form">
+                <p:dataTable id="dataTable" var="ja" value="#{jobAdCtrl.lazyModel}" widgetVar="jobAdsTable"
+                        paginator="true" rows="10" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowKey="#{ja.id}"  filteredValue="#{jobAdCtrl.filteredJobAds}" >
+              
+                        
+                   <f:facet name="header">		
+                   	
+               		 <p:outputPanel>  
+                		<h:outputText value="Search all fields :  " />  
+               		    <p:inputText id="globalFilter" onkeyup="jobAdsTable.filter()" style="width:200px" />  
+           			 </p:outputPanel> 
+           			 
+                   </f:facet>  
+                   
+                   <p:column style="width:18px" /> 
+               	   <p:column id="id">
+                   		<f:facet name="header">
+                             <h:outputText value="Id" />
+                   	    </f:facet>
+                   	    <h:outputText value="#{ja.id}" />
+               	  </p:column>
+
+
+               	  <p:column filterBy="#{ja.description}" id="description">
+                    	<f:facet name="header">
+                       	    <h:outputText value="Description" />
+                    	</f:facet>
+                    	<h:outputText value="#{ja.description}" />
+               	  </p:column>
+               		 
+            </p:dataTable>
+         </h:form>   
+      
+  
+                               
+
+      
+<p:growl id="growl" showDetail="true" life="5000" />
+         
+<script type="text/javascript">  
+    function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+            dialog = jQuery('#'+dialogName);
+        if(args.validationFailed) {  
+            dialog.effect("shake", { times:3 }, 100);
+        } else {
+            newUserDialog.hide(); 
+            userDialog.hide(); 
+        }  
+    }
+</script> 
+	</h:body>
+</f:view>
